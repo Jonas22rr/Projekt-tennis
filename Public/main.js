@@ -1,4 +1,4 @@
-var shadowroot
+
 
 function myFunction() {
     document.getElementById('test').style.backgroundColor = "MediumSeaGreen";
