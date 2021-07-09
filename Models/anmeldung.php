@@ -54,7 +54,7 @@ class Anmeldung
     {
         $DB = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-        $result = $DB->query('SELECT * FROM anmeldungen inner join gaeste');
+        $result = $DB->query('SELECT * FROM anmeldungen  ORDER BY datum ASC');
 
         $anmeldungen = [];
         if ($result->num_rows > 0) {
@@ -63,6 +63,42 @@ class Anmeldung
             }
         }
         return $anmeldungen;
+    }
+    /**
+     * Liest alle Gäste aus der Datenbank aus
+     * @return array
+     */
+    public function getGuests()
+    {
+        $DB = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+        $result = $DB->query('SELECT * FROM gaeste');
+        $gaeste = [];
+        if ($result->num_rows > 0) {
+            while ($obj = $result->fetch_object(get_class($this))) {
+                $gaeste[$obj->gaesteid] = $obj;
+            }
+        }
+        return $gaeste;
+    }
+
+    /**
+     *Schreibt alle Muskelgruppen zu dem passenden Gerät in ein Array
+     * @return inventar[]
+     * @param int $spielerid
+     */
+    public function getConnection($spielerid)
+    {
+        $DB = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $query = "SELECT * FROM `gaeste` WHERE EXISTS (SELECT 1 FROM connection WHERE connection.gaesteid = gaeste.gaesteid AND connection.spielerid = '$spielerid') ";
+        $result = mysqli_query($DB, $query);
+        $getConnection = [];
+        if ($result->num_rows > 0) {
+            while($obj = $result->fetch_object(get_class($this))) {
+                $getConnection[$obj->gaesteid] = $obj;
+            }
+        }
+        return $getConnection;
     }
 
 }
