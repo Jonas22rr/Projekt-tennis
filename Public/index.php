@@ -19,18 +19,20 @@
 </head>
 <?php
 //anmelde-daten werden weggeschrieben
-print_r($_POST);
+//print_r($_POST);
 
 
-if(isset($_POST["saveButton"])) {
+if(isset($_POST['saveButton'])) {
 
     if (Anmeldung::neueAnmeldung($_POST)) {
-        echo "Sie haben sich erfolgreich zum spielen Angemeldet";
+        echo "Sie haben sich erfolgreich zum Spielen angemeldet"; 
     } else {
         echo "Hoppla, es ist leider ein Fehler aufgetreten";
     }
 
 }
+
+
 ?>
 <body>
 <div class="box container">
@@ -68,7 +70,7 @@ if(isset($_POST["saveButton"])) {
             </label>
         </div>
         <div>
-            <button name="saveButton" onclick="myFunction(); changeBorder()" id="test" type="submit" style="--content: 'Speichern';">
+            <button name="saveButton" onclick="myFunction(); changeBorder()" id="saveButton" type="submit" style="--content: 'Speichern';">
                 <div class="left"></div>
                 <span onclick="changeText()" id="changeText">Speichern</span>
                 <div class="right"></div>
