@@ -11,6 +11,8 @@
 
     <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" type="image/png" href="../pictures/favicon.png">
+
     <?php
     require_once '../Models/db.php';
 
@@ -25,9 +27,13 @@
 if(isset($_POST['saveButton'])) {
 
     if (Anmeldung::neueAnmeldung($_POST)) {
-        echo "Sie haben sich erfolgreich zum Spielen angemeldet"; 
+        ?>
+<script> alert("Sie haben sich erfolgreich zum Spielen angemeldet") </script>
+<?php
     } else {
-        echo "Hoppla, es ist leider ein Fehler aufgetreten";
+        ?>
+<script>alert("Hoppla, es ist leider ein Fehler aufgetreten")</script>
+<?php
     }
 
 }
